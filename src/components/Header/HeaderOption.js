@@ -1,36 +1,13 @@
-import { Avatar } from "@mui/material";
-import { useSelector } from "react-redux";
-
-import { selectUser } from "../../store/slices/userSlice";
-
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "./HeaderOption.css";
 
-const HeaderOption = ({
-  title,
-  Icon,
-  avatar = false,
-  active = false,
-  onClick,
-}) => {
-  const user = useSelector(selectUser);
-
+const HeaderOption = ({ title, Icon, active = false, onClick }) => {
   return (
-    <div className={"headerOption" + (active ? " active" : "")}>
+    <div
+      className={"headerOption" + (active ? " active" : "")}
+      onClick={onClick}
+    >
       {Icon && <Icon className="headerOption__icon" />}
-      {avatar && (
-        <Avatar src={user?.photoUrl} className="headerOption__icon">
-          {user?.email[0]}
-        </Avatar>
-      )}
-      <h3
-        className="headerOption__title"
-        style={avatar ? { paddingRight: "10px" } : null}
-        onClick={onClick}
-      >
-        {title}
-        {avatar && <ArrowDropDownIcon className="headerOption_nav_icon" />}
-      </h3>
+      <h3 className="headerOption__title">{title}</h3>
     </div>
   );
 };

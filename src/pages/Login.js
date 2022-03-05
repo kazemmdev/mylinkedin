@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 import { login } from "../store/slices/userSlice";
 import { auth } from "../services/firebaseService";
-
+import TextField from "@mui/material/TextField";
 import linkedin from "../assets/linkedin.png";
 
-import "./Login.css";
+import "./style.css";
 
 const Login = () => {
-  const [name, setName] = useState("");
-  const [picPofile, setPicPofile] = useState("");
+  const dispatch = useDispatch();
+  const navigator = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
 
   const loginToApp = (e) => {
     e.preventDefault();
@@ -28,30 +28,7 @@ const Login = () => {
             photoURL: userAuth.user.photoURL,
           })
         );
-      })
-      .catch((error) => alert(error));
-  };
-  const register = () => {
-    if (!name) return alert("Please enter your name for register");
-
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userAuth) => {
-        userAuth.user
-          .updateProfile({
-            displayName: name,
-            photoURL: picPofile,
-          })
-          .then(() => {
-            dispatch(
-              login({
-                uid: userAuth.user.uid,
-                email: userAuth.user.email,
-                displayName: name,
-                photoURL: picPofile,
-              })
-            );
-          });
+        navigator("/");
       })
       .catch((error) => alert(error));
   };
@@ -60,37 +37,27 @@ const Login = () => {
     <div className="login">
       <img src={linkedin} alt="linkedin" />
       <form onSubmit={loginToApp}>
-        <input
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          type="text"
-          placeholder="Full name"
-        />
-        <input
-          onChange={(e) => setPicPofile(e.target.value)}
-          value={picPofile}
-          type="text"
-          placeholder="Profile pic Url"
-        />
-        <input
-          onChange={(e) => setEmail(e.target.value)}
+        <TextField
+          label="Email"
+          margin="normal"
           value={email}
           type="email"
-          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
         />
-        <input
-          onChange={(e) => setPassword(e.target.value)}
+        <TextField
+          label="Password"
+          margin="normal"
           value={password}
           type="password"
-          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Sign In</button>
       </form>
       <p>
-        Not a member?{" "}
-        <span className="login__register" onClick={register}>
-          Register Now
-        </span>
+        New to My LinkedIn?
+        <Link to="/signup" className="login__register">
+          Join
+        </Link>
       </p>
     </div>
   );

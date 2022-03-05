@@ -1,51 +1,26 @@
-import React, { useEffect } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
-import { login, logout, selectUser } from "./store/slices/userSlice";
-
-import Header from "./components/Header/Header";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Feed from "./components/Feed/Feed";
-import Widgets from "./components/Widgets/Widgets";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
-
-import { auth } from "./services/firebaseService";
+import Register from "./pages/Register";
+import Setting from "./pages/Setting";
+import NotFound from "./pages/NotFound";
 
 import "./App.css";
 
 function App() {
-  const user = useSelector(selectUser);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    auth.onAuthStateChanged((userAuth) => {
-      if (userAuth) {
-        dispatch(
-          login({
-            uid: userAuth.uid,
-            email: userAuth.email,
-            displayName: userAuth.displayName,
-            photoURL: userAuth.photoURL,
-          })
-        );
-      } else dispatch(logout());
-    });
-  }, []);
-
   return (
     <div className="app">
-      {!user ? (
-        <Login />
-      ) : (
-        <>
-          <Header />
-          <div className="app__body">
-            <Sidebar />
-            <Feed />
-            <Widgets />
-          </div>
-        </>
-      )}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Register />} />
+          <Route path="/me/setting" element={<Setting />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="/*" element={<Navigate to="404" replace />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

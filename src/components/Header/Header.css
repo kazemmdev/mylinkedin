@@ -11,6 +11,7 @@
   display: flex;
   justify-content: space-between;
   max-width: 1128px;
+  padding: 0 10px;
   margin: auto;
 }
 
@@ -27,13 +28,13 @@
 }
 
 .header__search {
-  display: flex;
   padding: 10px;
   align-items: center;
   border-radius: 5px;
   height: 17px;
   color: gray;
   background-color: #eef3f8;
+  display: none;
 }
 
 .header__search > input {
@@ -44,4 +45,10 @@
 
 .header__right {
   display: flex;
+}
+
+@media screen and (min-width: 860px) {
+  .header__search {
+    display: flex;
+  }
 }

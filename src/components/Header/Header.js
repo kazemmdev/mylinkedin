@@ -1,10 +1,5 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import HeaderOption from "./HeaderOption";
-import { auth } from "../../services/firebaseService";
-import { logout, selectUser } from "../../store/slices/userSlice";
-
 import Logo from "../../assets/linkedin.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
@@ -12,18 +7,12 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import ChatIcon from "@mui/icons-material/Chat";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import NavOption from "./NavOption";
 
 import "./Header.css";
 
-function Header() {
-  const user = useSelector(selectUser);
-  const dispatch = useDispatch();
-
-  const logOutApp = () => {
-    dispatch(logout());
-    auth.signOut();
-  };
-
+function Header({ isHome = true }) {
+  const navigator = useNavigate();
   return (
     <div className="header">
       <div className="header__container">
@@ -37,12 +26,17 @@ function Header() {
           </div>
         </div>
         <div className="header__right">
-          <HeaderOption Icon={HomeIcon} title="Home" active={true} />
+          <HeaderOption
+            Icon={HomeIcon}
+            title="Home"
+            active={isHome}
+            onClick={() => navigator("/")}
+          />
           <HeaderOption Icon={SupervisorAccountIcon} title="My Network" />
           <HeaderOption Icon={BusinessCenterIcon} title="Jobs" />
           <HeaderOption Icon={ChatIcon} title="Messageing" />
           <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-          <HeaderOption title="Me" avatar={true} onClick={logOutApp} />
+          <NavOption />
         </div>
       </div>
     </div>

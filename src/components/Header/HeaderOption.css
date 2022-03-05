@@ -7,7 +7,7 @@
   color: gray;
   cursor: pointer;
   min-height: 52px;
-  min-width: 80px;
+  min-width: 52px;
 }
 
 .headerOption.active {
@@ -36,10 +36,26 @@
 .headerOption__title {
   font-size: 12px;
   font-weight: 400;
+  padding-top: 3px;
+  display: none;
+}
+
+.headerOption .nav {
+  cursor: pointer;
 }
 
 .headerOption_nav_icon {
   position: absolute;
   bottom: 1px;
   right: 16px;
+}
+
+@media screen and (min-width: 680px) {
+  .headerOption {
+    min-width: 80px;
+  }
+
+  .headerOption__title {
+    display: block;
+  }
 }
