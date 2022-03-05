@@ -1,16 +1,19 @@
-import InputOption from "./InputOption";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import FlipMove from "react-flip-move";
+import firebase from "firebase/compat/app";
+
+import { db } from "../../services/firebaseService";
+import { selectUser } from "../../store/slices/userSlice";
+
+import Post from "./Post";
+import InputOption from "../Common/InputOption";
+
 import CreateIcon from "@mui/icons-material/Create";
 import ImageIcon from "@mui/icons-material/Image";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import ArticleIcon from "@mui/icons-material/Article";
-
-import Post from "./Post";
-import firebase from "firebase/compat/app";
-import { useEffect, useState } from "react";
-import { db } from "./firebase";
-import { useSelector } from "react-redux";
-import { selectUser } from "./features/userSlice";
 
 import "./Feed.css";
 
@@ -69,15 +72,17 @@ const Feed = () => {
           />
         </div>
       </div>
-      {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
-        <Post
-          key={id}
-          name={name}
-          description={description}
-          message={message}
-          photoUrl={photoUrl}
-        />
-      ))}
+      <FlipMove>
+        {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+          <Post
+            key={id}
+            name={name}
+            description={description}
+            message={message}
+            photoUrl={photoUrl}
+          />
+        ))}
+      </FlipMove>
     </div>
   );
 };

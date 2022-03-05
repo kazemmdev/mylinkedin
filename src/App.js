@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { login, logout, selectUser } from "./features/userSlice";
+import { login, logout, selectUser } from "./store/slices/userSlice";
 
-import Header from "./Header";
-import Sidebar from "./Sidebar";
-import Feed from "./Feed";
-import Login from "./Login";
+import Header from "./components/Header/Header";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Feed from "./components/Feed/Feed";
+import Widgets from "./components/Widgets/Widgets";
+import Login from "./pages/Login";
+
+import { auth } from "./services/firebaseService";
 
 import "./App.css";
-import { auth } from "./firebase";
 
 function App() {
   const user = useSelector(selectUser);
@@ -32,14 +34,17 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
       {!user ? (
         <Login />
       ) : (
-        <div className="app__body">
-          <Sidebar />
-          <Feed />
-        </div>
+        <>
+          <Header />
+          <div className="app__body">
+            <Sidebar />
+            <Feed />
+            <Widgets />
+          </div>
+        </>
       )}
     </div>
   );

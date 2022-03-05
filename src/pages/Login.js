@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "./features/userSlice";
-import { auth } from "./firebase";
 
-import linkedin from "./assets/linkedin.png";
+import { login } from "../store/slices/userSlice";
+import { auth } from "../services/firebaseService";
+
+import linkedin from "../assets/linkedin.png";
 
 import "./Login.css";
 
