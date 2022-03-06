@@ -14,7 +14,6 @@ const NavOption = () => {
 
   const logOutApp = () => {
     setAnchorEl(null);
-
     dispatch(logout());
     auth.signOut();
   };
@@ -26,9 +25,11 @@ const NavOption = () => {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };

@@ -26,7 +26,7 @@ const Sidebar = () => {
           {user.email[0]}
         </Avatar>
         <h2>{user.displayName}</h2>
-        <h4>{user.email}</h4>
+        <h4>{user.bio}</h4>
       </div>
       <div className="sidebar__stats">
         <div className="sidebar__stat">

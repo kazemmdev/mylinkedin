@@ -1,36 +1,32 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { login } from "../services/authService";
 
-import { login } from "../store/slices/userSlice";
-import { auth } from "../services/firebaseService";
 import TextField from "@mui/material/TextField";
 import linkedin from "../assets/linkedin.png";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import "./style.css";
 
 const Login = () => {
-  const dispatch = useDispatch();
   const navigator = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const loginToApp = (e) => {
     e.preventDefault();
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userAuth) => {
-        dispatch(
-          login({
-            uid: userAuth.user.uid,
-            email: userAuth.user.email,
-            displayName: userAuth.user.displayName,
-            photoURL: userAuth.user.photoURL,
-          })
-        );
+    setLoading(true);
+
+    login(email, password)
+      .then(() => {
+        setLoading(false);
         navigator("/");
       })
-      .catch((error) => alert(error));
+      .catch((error) => {
+        setLoading(false);
+        alert(error);
+      });
   };
 
   return (
@@ -38,6 +34,7 @@ const Login = () => {
       <img src={linkedin} alt="linkedin" />
       <form onSubmit={loginToApp}>
         <TextField
+          required
           label="Email"
           margin="normal"
           value={email}
@@ -45,13 +42,21 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
+          required
           label="Password"
           margin="normal"
           value={password}
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Sign In</button>
+        <button type="submit">
+          Sign In
+          {loading && (
+            <CircularProgress
+              style={{ height: 25, width: 25, color: "white", marginLeft: 10 }}
+            />
+          )}
+        </button>
       </form>
       <p>
         New to My LinkedIn?

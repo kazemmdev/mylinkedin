@@ -1,56 +1,43 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { register } from "../services/authService";
 
-import { login } from "../store/slices/userSlice";
-import { auth } from "../services/firebaseService";
 import { TextField } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import linkedin from "../assets/linkedin.png";
 
 import "./style.css";
 
 const Register = () => {
-  const dispatch = useDispatch();
   const navigator = useNavigate();
 
   const [name, setName] = useState("");
   const [photoURL, setPhotoURL] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const register = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    if (!name) return alert("Please enter your name for register");
-
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userAuth) => {
-        userAuth.user
-          .updateProfile({
-            displayName: name,
-            photoURL: photoURL,
-          })
-          .then(() => {
-            dispatch(
-              login({
-                uid: userAuth.user.uid,
-                email: userAuth.user.email,
-                displayName: name,
-                photoURL: photoURL,
-              })
-            );
-            navigator("/");
-          });
+    register(email, password, name, photoURL)
+      .then(() => {
+        setLoading(false);
+        navigator("/");
       })
-      .catch((error) => alert(error));
+      .catch((error) => {
+        setLoading(false);
+        alert(error);
+      });
   };
 
   return (
     <div className="login">
       <img src={linkedin} alt="linkedin" />
-      <form onSubmit={register}>
+      <form onSubmit={handleRegister}>
         <TextField
+          required
           label="Full Name"
           margin="normal"
           value={name}
@@ -63,6 +50,7 @@ const Register = () => {
           onChange={(e) => setPhotoURL(e.target.value)}
         />
         <TextField
+          required
           label="Email"
           margin="normal"
           value={email}
@@ -70,13 +58,21 @@ const Register = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
+          required
           label="Password"
           margin="normal"
           value={password}
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Register</button>
+        <button type="submit">
+          Register
+          {loading && (
+            <CircularProgress
+              style={{ height: 25, width: 25, color: "white", marginLeft: 10 }}
+            />
+          )}
+        </button>
       </form>
       <p>
         Already on My LinkedIn?
