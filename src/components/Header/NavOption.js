@@ -43,7 +43,7 @@ const NavOption = () => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
       >
-        <Avatar src={user?.photoUrl} className="headerOption__icon">
+        <Avatar src={user?.photoURL} className="headerOption__icon">
           {user?.email[0]}
         </Avatar>
         <h3 className="headerOption__title" style={{ paddingRight: "10px" }}>

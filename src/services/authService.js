@@ -1,5 +1,6 @@
 import store from "../app/store";
-import { auth } from "./firebaseService";
+import firebase from "firebase/compat/app";
+import { auth, db } from "./firebaseService";
 import {
   login as loginAction,
   logout as logoutAction,
@@ -45,24 +46,62 @@ export async function register(email, password, displayName, photoURL) {
           displayName: displayName,
           photoURL: photoURL,
         })
-        .then(() =>
+        .then(() => {
           dispatchUser(
             userAuth.user.uid,
             userAuth.user.email,
             displayName,
             photoURL
-          )
-        );
+          );
+          setProfile(userAuth.user.uid, "", "");
+        });
     });
 }
 
-function dispatchUser(id, email, displayName, photoURL) {
+export async function getProfile(uid) {
+  let data = null;
+
+  await db
+    .collection("profiles")
+    .where("user_uid", "==", uid)
+    .get()
+    .then((snapshot) =>
+      snapshot.docs.map((doc) => (data = { uid: doc.id, ...doc.data() }))
+    );
+
+  return data;
+}
+
+export async function setProfile(uid, bio, picProfile) {
+  const profile = await getProfile(uid);
+
+  if (profile) {
+    db.collection("profiles").doc(profile.uid).update({
+      bio: bio,
+      picProfile: picProfile,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+  } else {
+    db.collection("profiles").add({
+      bio: bio,
+      user_uid: uid,
+      picProfile: picProfile,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+  }
+}
+
+async function dispatchUser(uid, email, displayName, photoURL) {
+  const profile = await getProfile(uid);
+
   store.dispatch(
     loginAction({
-      uid: id,
+      uid: uid,
       email: email,
       displayName: displayName,
       photoURL: photoURL,
+      bio: profile.bio,
+      picProfile: profile.picProfile,
     })
   );
 }

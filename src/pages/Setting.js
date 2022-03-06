@@ -2,23 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../store/slices/userSlice";
-import { fetchUser } from "../services/authService";
+import { fetchUser, setProfile } from "../services/authService";
 import Header from "../components/Header/Header";
 import { CircularProgress, TextField } from "@mui/material";
+import { auth } from "../services/firebaseService";
 
 const Setting = () => {
   const navigator = useNavigate();
   const user = useSelector(selectUser);
 
-  const [name, setName] = useState(user.displayName);
-  const [bio, setBio] = useState(user.displayName);
-  const [avatar, setAvatar] = useState(user.photoUrl);
-  const [picProfile, setPicProfile] = useState(user.displayName);
+  const [name, setName] = useState(user?.displayName);
+  const [bio, setBio] = useState(user?.bio);
+  const [avatar, setAvatar] = useState(user?.photoURL);
+  const [picProfile, setPicProfile] = useState(user?.picProfile);
   const [loading, setLoading] = useState(false);
-  // add bio and profile photo to user data
-  // setting page can update it
-  // responsive home page
-  // add some loader to home page
 
   useEffect(() => {
     fetchUser().catch(() => {
@@ -26,8 +23,19 @@ const Setting = () => {
     });
   }, []);
 
+  // setting page can update it
+  // responsive home page
+  // add some loader to home page
+
   const handleProfileUpdate = (e) => {
     e.preventDefault();
+
+    setProfile(user.uid, bio.trim(), picProfile).then(() => {
+      auth.currentUser.updateProfile({
+        displayName: name.trim(),
+        photoURL: avatar,
+      });
+    });
   };
 
   if (user) {
