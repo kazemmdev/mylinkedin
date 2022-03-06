@@ -1,6 +1,6 @@
 .feed {
-  flex: 0.6;
-  margin: 0 20px;
+  flex: 0.5;
+  margin: 10px;
 }
 
 .feed__inputContainer {
@@ -9,15 +9,22 @@
   padding-bottom: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
+  border: 1px solid lightgray;
 }
 
 .feed__input {
   display: flex;
   padding: 10px;
+  margin: 10px;
   padding-left: 15px;
   color: gray;
   border-radius: 30px;
   border: 1px solid lightgray;
+  transition: all 0.3s ease;
+}
+
+.feed__input:hover {
+  border-color: gray;
 }
 
 .feed__input > form {
@@ -41,4 +48,11 @@
   display: flex;
   margin-top: 15px;
   justify-content: space-evenly;
+}
+
+@media screen and (min-width: 1100px) {
+  .feed {
+    flex: 0.7;
+    margin: 0 10px;
+  }
 }

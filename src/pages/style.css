@@ -96,3 +96,27 @@
 .app__setting > form > button:hover {
   background-color: #1177dd;
 }
+
+.notfound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 0;
+  margin: 0 auto;
+}
+
+.notfound > h1 {
+  font-size: 200px;
+  font-weight: 400;
+}
+
+.notfound > p {
+  font-size: 20px;
+  color: gray;
+}
+
+.notfound__redirectLink {
+  padding-left: 10px;
+  color: #0074b1;
+}

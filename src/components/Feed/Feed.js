@@ -1,10 +1,8 @@
+import FlipMove from "react-flip-move";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import FlipMove from "react-flip-move";
-import firebase from "firebase/compat/app";
-
-import { db } from "../../services/firebaseService";
 import { selectUser } from "../../store/slices/userSlice";
+import { save, posts as getPosts } from "../../services/postService";
 
 import Post from "./Post";
 import InputOption from "../Common/InputOption";
@@ -23,30 +21,17 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    db.collection("posts")
-      .orderBy("timestamp", "desc")
-      .onSnapshot((snapshot) =>
-        setPosts(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        )
-      );
+    getPosts().then((data) => {
+      setPosts(data);
+    });
   }, []);
 
   const handlePostSend = (e) => {
     e.preventDefault();
-
-    db.collection("posts").add({
-      name: user.displayName,
-      description: user.email,
-      message: message,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-
+    save(user, message);
     setMessage("");
   };
+
   return (
     <div className="feed">
       <div className="feed__inputContainer">
@@ -73,13 +58,14 @@ const Feed = () => {
         </div>
       </div>
       <FlipMove>
-        {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+        {posts.map(({ id, body, likes, time, userPhoto, userName }) => (
           <Post
             key={id}
-            name={name}
-            description={description}
-            message={message}
-            photoUrl={photoUrl}
+            name={userName}
+            avatar={userPhoto}
+            likes={likes}
+            body={body}
+            time={time}
           />
         ))}
       </FlipMove>

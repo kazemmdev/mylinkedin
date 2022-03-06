@@ -9,18 +9,18 @@ import SendIcon from "@mui/icons-material/Send";
 
 import "./Post.css";
 
-const Post = forwardRef(({ name, description, message, photoUrl }, ref) => {
+const Post = forwardRef(({ body, likes, time, avatar, name }, ref) => {
   return (
     <div ref={ref} className="post">
       <div className="post__header">
-        <Avatar src={photoUrl}>{name[0]}</Avatar>
+        <Avatar src={avatar}>{name[0]}</Avatar>
         <div className="post__info">
           <h2>{name}</h2>
-          <p>{description}</p>
+          <p>{time}</p>
         </div>
       </div>
       <div className="post__body">
-        <p>{message}</p>
+        <p>{body}</p>
       </div>
       <div className="post__buttons">
         <InputOption Icon={ThumbUpOffAltIcon} title="Like" color="gray" />

@@ -10,5 +10,14 @@
   display: flex;
   width: 100%;
   max-width: 1128px;
-  margin: 35px auto;
+  margin: 20px auto;
+  justify-content: center;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 680px) {
+  .app__body {
+    flex-direction: row;
+    margin: 35px auto;
+  }
 }

@@ -1,10 +1,11 @@
 .sidebar {
-  position: sticky;
-  top: 80px;
+  position: relative;
   flex: 0.2;
+  margin: 0 10px;
   border-radius: 10px;
   height: fit-content;
   text-align: center;
+  min-width: 200px;
 }
 
 .sidebar__avatar {
@@ -100,4 +101,11 @@
 .sidebar__hash {
   margin-right: 10px;
   margin-left: 5px;
+}
+
+@media screen and (min-width: 680px) {
+  .sidebar {
+    position: sticky;
+    top: 80px;
+  }
 }

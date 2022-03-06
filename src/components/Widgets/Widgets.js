@@ -20,7 +20,7 @@ const Widgets = () => {
     <div className="widgets">
       <div className="widgets__header">
         <h2>LinkedIn News</h2>
-        <InfoIcon />
+        <InfoIcon style={{ height: 16, color: "gray" }} />
       </div>
       {newsArticle(
         "this is a news article",

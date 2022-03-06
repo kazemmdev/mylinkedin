@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../store/slices/userSlice";
-import { fetchUser } from "../services/authService";
+import { fetchUser } from "../services/userService";
 
 import Feed from "../components/Feed/Feed";
 import Header from "../components/Header/Header";

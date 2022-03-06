@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../services/authService";
+import { login } from "../services/userService";
 
 import TextField from "@mui/material/TextField";
 import linkedin from "../assets/linkedin.png";
