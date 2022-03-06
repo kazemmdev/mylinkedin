@@ -21,10 +21,10 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    getPosts().then((data) => {
-      setPosts(data);
+    getPosts().then((response) => {
+      setPosts(response);
     });
-  }, []);
+  }, [message]);
 
   const handlePostSend = (e) => {
     e.preventDefault();

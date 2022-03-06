@@ -3,13 +3,12 @@ import moment from "moment";
 import { db } from "./firebaseService";
 
 export async function posts() {
-  const posts = [];
-
-  await db
+  return await db
     .collection("posts")
     .orderBy("timestamp", "desc")
     .get()
     .then((querySnapshot) => {
+      const posts = [];
       querySnapshot.forEach((doc) => {
         posts.push({
           id: doc.id,
@@ -17,12 +16,12 @@ export async function posts() {
           userPhoto: doc.data().user_photo,
           body: doc.data().body,
           likes: doc.data().likes,
-          time: moment(doc.data().timestamp.toDate()).fromNow(),
+          time: moment(doc.data().timestamp?.toDate()).fromNow(),
         });
       });
-    });
 
-  return posts;
+      return posts;
+    });
 }
 
 export function save(user, body) {
