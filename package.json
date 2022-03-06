@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This is a simple clone of LinkedIn with react and firebase",
   "private": true,
+  "license": "MIT",
   "keywords": [
     "react",
     "redux",
