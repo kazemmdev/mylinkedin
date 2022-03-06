@@ -1,7 +1,18 @@
 {
   "name": "mylinkedin",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "This is a simple clone of LinkedIn with react and firebase",
   "private": true,
+  "keywords": [
+    "react",
+    "redux",
+    "react-dom",
+    "firebase"
+  ],
+  "author": {
+    "name": "Kazem Mirzaei",
+    "email": "k90mirzaei@gmail.com"
+  },
   "dependencies": {
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
@@ -43,5 +54,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k90mirzaei/linkedin-clone"
+  },
+  "bugs": {
+    "url": "https://github.com/k90mirzaei/linkedin-clone/issues"
   }
 }
