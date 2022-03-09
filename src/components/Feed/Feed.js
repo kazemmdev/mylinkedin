@@ -5,15 +5,11 @@ import { selectUser } from "../../store/slices/userSlice";
 import { save, posts as getPosts } from "../../services/postService";
 
 import Post from "./Post";
-import InputOption from "../Common/InputOption";
 
-import CreateIcon from "@mui/icons-material/Create";
-import ImageIcon from "@mui/icons-material/Image";
-import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
-import EventNoteIcon from "@mui/icons-material/EventNote";
-import ArticleIcon from "@mui/icons-material/Article";
-
-import "./Feed.css";
+import { ReactComponent as ArticleSvg } from "../../assets/article.svg";
+import { ReactComponent as ImageSvg } from "../../assets/image.svg";
+import { ReactComponent as VideoSvg } from "../../assets/video.svg";
+import { ReactComponent as SendSvg } from "../../assets/send.svg";
 
 const Feed = () => {
   const user = useSelector(selectUser);
@@ -33,29 +29,41 @@ const Feed = () => {
   };
 
   return (
-    <div className="feed">
-      <div className="feed__inputContainer">
-        <div className="feed__input">
-          <CreateIcon />
-          <form onSubmit={handlePostSend}>
+    <div className="flex-auto sm:mt-0 mt-4 sm:w-3/5 md:w-2/3 lg:w-6/12">
+      <div className="flex flex-col items-center justify-center mb-4 bg-white rounded">
+        <form className="w-full" onSubmit={handlePostSend}>
+          <div className="border-b">
             <input
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
               type="text"
+              value={message}
+              required
+              onChange={(e) => setMessage(e.target.value)}
+              className="border-none outline-none p-7"
+              placeholder="Write here for visual impact."
             />
-            <button type="submit">Send</button>
-          </form>
-        </div>
-        <div className="feed__inputOptions">
-          <InputOption title="Photo" Icon={ImageIcon} color="#70B5F9" />
-          <InputOption title="Video" Icon={SubscriptionsIcon} color="#E7A33E" />
-          <InputOption title="Event" Icon={EventNoteIcon} color="#C0CBCD" />
-          <InputOption
-            title="Write article"
-            Icon={ArticleIcon}
-            color="#7FC15E"
-          />
-        </div>
+          </div>
+          <div className="flex items-center justify-between my-4">
+            <div className="flex space-x-6 px-5 py-2">
+              <div className="flex items-center space-x-1 text-gray-400">
+                <ArticleSvg className="stroke-gray-400 h-7 w-7 object-contain" />
+                <span className="hidden sm:block">Article</span>
+              </div>
+              <div className="flex items-center space-x-1 text-gray-400">
+                <ImageSvg className="stroke-gray-400 h-7 w-7 object-contain" />
+                <span className="hidden sm:block">Image</span>
+              </div>
+              <div className="flex items-center space-x-1 text-gray-400">
+                <VideoSvg className="stroke-gray-400 h-7 w-7 object-contain" />
+                <span className="hidden sm:block">Video</span>
+              </div>
+            </div>
+            <div>
+              <button className="block pr-6" type="submit">
+                <SendSvg className="stroke-blue-500 h-7 w-7 object-contain" />
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
       <FlipMove>
         {posts.map(({ id, body, likes, time, userPhoto, userName }) => (

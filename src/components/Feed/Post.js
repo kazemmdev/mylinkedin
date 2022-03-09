@@ -1,36 +1,37 @@
 import { forwardRef } from "react";
-import InputOption from "../Common/InputOption";
-
 import { Avatar } from "@mui/material";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import ShareIcon from "@mui/icons-material/Share";
-import SendIcon from "@mui/icons-material/Send";
-
-import "./Post.css";
+import { ReactComponent as LikeSvg } from "../../assets/like.svg";
+import { ReactComponent as CommentSvg } from "../../assets/message.svg";
+import { ReactComponent as ShareSvg } from "../../assets/share.svg";
 
 const Post = forwardRef(({ body, likes, time, avatar, name }, ref) => {
   return (
-    <div ref={ref} className="post">
-      <div className="post__header">
+    <div
+      ref={ref}
+      className="flex flex-col p-5 mb-4 items-center justify-center bg-white rounded"
+    >
+      <div className="w-full flex space-x-4 items-center">
         <Avatar src={avatar}>{name[0]}</Avatar>
-        <div className="post__info">
-          <h2>{name}</h2>
-          <p>{time}</p>
+        <div>
+          <h2 className="text-sm font-medium">{name}</h2>
+          <p className="text-xs text-gray-400 p-0">{time}</p>
         </div>
       </div>
-      <div className="post__body">
+      <div className="w-full pt-5">
         <p>{body}</p>
       </div>
-      <div className="post__buttons">
-        <InputOption Icon={ThumbUpOffAltIcon} title="Like" color="gray" />
-        <InputOption
-          Icon={ChatBubbleOutlineIcon}
-          title="Comment"
-          color="gray"
-        />
-        <InputOption Icon={ShareIcon} title="Share" color="gray" />
-        <InputOption Icon={SendIcon} title="Send" color="gray" />
+      <div className="w-full flex items-center mt-4 space-x-6">
+        <div className="group flex space-x-2 items-center">
+          <LikeSvg className="stroke-gray-400 group-hover:stroke-red-500 items-center cursor-pointer" />
+          <span className="text-gray-400">5</span>
+        </div>
+        <div className="group flex space-x-2">
+          <CommentSvg className="stroke-gray-400 group-hover:stroke-blue-500 items-center cursor-pointer" />
+          <span className="text-gray-400">12</span>
+        </div>
+        <div className="group flex space-x-2">
+          <ShareSvg className="fill-gray-400 group-hover:fill-blue-500 items-center cursor-pointer" />
+        </div>
       </div>
     </div>
   );

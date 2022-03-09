@@ -23,7 +23,7 @@ const Home = () => {
     return (
       <React.Fragment>
         <Header />
-        <div className="app__body">
+        <div className="flex flex-col sm:flex-row sm:space-x-4 justify-center w-full max-w-6xl sm:mx-auto my-2 sm:my-4 px-4">
           <Sidebar />
           <Feed />
           <Widgets />

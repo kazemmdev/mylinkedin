@@ -6,11 +6,9 @@ import Register from "./pages/Register";
 import Setting from "./pages/Setting";
 import NotFound from "./pages/NotFound";
 
-import "./App.css";
-
 function App() {
   return (
-    <div className="app">
+    <div className="flex flex-col items-center min-h-screen bg-gray-100">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

@@ -6,6 +6,9 @@ import {
   logout as logoutAction,
 } from "../store/slices/userSlice";
 
+const defaultBackground =
+  "https://career-lunch-storage.s3.eu-central-1.amazonaws.com/v2/blog/articles/linkedin-title-picture.jpg";
+
 export function fetchUser() {
   return new Promise((resolve, reject) => {
     auth.onAuthStateChanged((userAuth) => {
@@ -53,7 +56,7 @@ export async function register(email, password, displayName, photoURL) {
             displayName,
             photoURL
           );
-          setProfile(userAuth.user.uid, "", "");
+          setProfile(userAuth.user.uid, "", defaultBackground);
         });
     });
 }
@@ -100,8 +103,8 @@ async function dispatchUser(uid, email, displayName, photoURL) {
       email: email,
       displayName: displayName,
       photoURL: photoURL,
-      bio: profile.bio,
-      picProfile: profile.picProfile,
+      bio: profile?.bio,
+      picProfile: profile ? profile.picProfile : defaultBackground,
     })
   );
 }

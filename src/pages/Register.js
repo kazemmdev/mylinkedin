@@ -6,8 +6,6 @@ import { TextField } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import linkedin from "../assets/linkedin.png";
 
-import "./style.css";
-
 const Register = () => {
   const navigator = useNavigate();
 
@@ -33,9 +31,12 @@ const Register = () => {
   };
 
   return (
-    <div className="login">
-      <img src={linkedin} alt="linkedin" />
-      <form onSubmit={handleRegister}>
+    <div className="grid w-96 mx-auto place-items-center py-10">
+      <img className="h-16 my-6 object-contain" src={linkedin} alt="linkedin" />
+      <form
+        onSubmit={handleRegister}
+        className="w-full flex flex-col bg-white rounded-lg px-8 py-10 shadow-md"
+      >
         <TextField
           required
           label="Full Name"
@@ -65,7 +66,10 @@ const Register = () => {
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">
+        <button
+          type="submit"
+          className="bg-blue-400 hover:bg-blue-500 active:bg-blue-600 text-white flex items-center justify-center rounded-full cursor-pointer text-base h-12 w-full mt-8 ml-auto"
+        >
           Register
           {loading && (
             <CircularProgress
@@ -74,9 +78,12 @@ const Register = () => {
           )}
         </button>
       </form>
-      <p>
+      <p className="mt-5">
         Already on My LinkedIn?
-        <Link to="/login" className="login__register">
+        <Link
+          to="/login"
+          className="cursor-pointer px-4 text-blue-400 hover:text-blue-500"
+        >
           Sign in
         </Link>
       </p>

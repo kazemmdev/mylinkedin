@@ -37,19 +37,19 @@ const NavOption = () => {
   return (
     <React.Fragment>
       <div
-        className="headerOption nav"
+        className="relative block ml-auto sm:ml-5 items-center h-8 w-8 cursor-pointer"
         onClick={handleClick}
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
       >
-        <Avatar src={user?.photoURL} className="headerOption__icon">
+        <Avatar
+          sx={{ height: 32, width: 32 }}
+          src={user?.photoURL}
+          className="flex items-center justify-center h-8 w-8 mb-8"
+        >
           {user?.email[0]}
         </Avatar>
-        <h3 className="headerOption__title" style={{ paddingRight: "10px" }}>
-          Me
-          <ArrowDropDownIcon className="headerOption_nav_icon" />
-        </h3>
       </div>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <MenuItem onClick={redirectToSetting}>Setting</MenuItem>

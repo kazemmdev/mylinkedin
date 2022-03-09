@@ -47,9 +47,9 @@ const Setting = () => {
     return (
       <React.Fragment>
         <Header isHome={false} />
-        <div className="app__body">
-          <div className="app__setting">
-            <h2>Update Your Setting</h2>
+        <div className="flex h-screen">
+          <div className="w-full max-w-lg h-fit mt-14 mx-auto flex flex-col rounded-lg px-8 pt-10 bg-white shadow-md">
+            <h2 className="font-semibold text-2xl pb-2">Update Your Setting</h2>
             <form onSubmit={handleProfileUpdate}>
               <TextField
                 fullWidth
@@ -87,7 +87,10 @@ const Setting = () => {
                 value={picProfile}
                 onChange={(e) => setPicProfile(e.target.value)}
               />
-              <button type="submit">
+              <button
+                type="submit"
+                className="bg-blue-500 text-white flex items-center justify-center rounded-full cursor-pointer text-base h-12 w-40 my-8 ml-auto"
+              >
                 Update
                 {loading && (
                   <CircularProgress

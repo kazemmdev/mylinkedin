@@ -6,8 +6,6 @@ import TextField from "@mui/material/TextField";
 import linkedin from "../assets/linkedin.png";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import "./style.css";
-
 const Login = () => {
   const navigator = useNavigate();
   const [email, setEmail] = useState("");
@@ -30,9 +28,12 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
-      <img src={linkedin} alt="linkedin" />
-      <form onSubmit={loginToApp}>
+    <div className="grid w-96 mx-auto place-items-center py-10">
+      <img className="h-16 my-6 object-contain" src={linkedin} alt="linkedin" />
+      <form
+        onSubmit={loginToApp}
+        className="w-full flex flex-col bg-white rounded-lg px-8 py-10 shadow-md"
+      >
         <TextField
           required
           label="Email"
@@ -49,7 +50,10 @@ const Login = () => {
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">
+        <button
+          type="submit"
+          className="bg-blue-400 hover:bg-blue-500 active:bg-blue-600 text-white flex items-center justify-center rounded-full cursor-pointer text-base h-12 w-full mt-8 ml-auto"
+        >
           Sign In
           {loading && (
             <CircularProgress
@@ -58,9 +62,12 @@ const Login = () => {
           )}
         </button>
       </form>
-      <p>
+      <p className="mt-5">
         New to My LinkedIn?
-        <Link to="/signup" className="login__register">
+        <Link
+          to="/signup"
+          className="cursor-pointer px-4 text-blue-400 hover:text-blue-500"
+        >
           Join
         </Link>
       </p>
