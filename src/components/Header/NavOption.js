@@ -4,7 +4,6 @@ import { logout, selectUser } from "../../store/slices/userSlice";
 import { auth } from "../../services/firebaseService";
 
 import { Avatar, Menu, MenuItem } from "@mui/material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useNavigate } from "react-router-dom";
 
 const NavOption = () => {
