@@ -2,7 +2,7 @@
 
 # Linkedin.com (Redesign with Next.js & Tailwindcss)
 
-It is a redesign of the professional networking and career development website [Medium.com](https://medium.com). It is designed with React and Tailwindcss in [Nextjs](https://nextjs.org/) framework, and used [firebase](https://firebase.google.com) as back API. 
+It is a redesign of the professional networking and career development website [linkedin.com](https://linkedin.com). It is designed with React and Tailwindcss in [Nextjs](https://nextjs.org/) framework, and used [firebase](https://firebase.google.com) as back API. 
 
 ## Features
 * Nextjs
